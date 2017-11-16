@@ -30,7 +30,7 @@ app.get('/:code', function (req, res) {
                 if (result.status === 'INITIALIZED') {
                     res.redirect(registerUiRoot);
                 }
-                else if (result.status === 'LINKED') {
+                else if (result.status === 'ACTIVATED') {
                     res.redirect(searchUiRoot);
                 }
                 else {
