@@ -1,0 +1,26 @@
+{
+  "name": "qr-router",
+  "version": "1.0.0",
+  "description": "route code uris to register or search",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.1.x"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sensorregister/qr-router.git"
+  },
+  "author": "Kadaster",
+  "license": "EPL-1.0",
+  "bugs": {
+    "url": "https://github.com/sensorregister/qr-router/issues"
+  },
+  "homepage": "https://github.com/sensorregister/qr-router#readme"
+}

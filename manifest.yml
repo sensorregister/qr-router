@@ -1,0 +1,10 @@
+---
+applications:
+- name: qr-router
+  command: node app.js
+  instances: 1
+  buildpack: nodejs_buildpack
+  memory: 128M
+  routes:
+    - route: qr-router.apps.kadaster.examples.cf
+    - route: senzd.nl
