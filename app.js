@@ -1,14 +1,25 @@
 var express = require('express');
 var util = require('util');
 var request = require('request');
+var cfenv = require('cfenv');
 
-const registerApiRoot = process.env.REGISTER_API_ROOT || 'http://localhost:8081/';
+var config = cfenv.getAppEnv().getService('registration-config') ||
+    { credentials :
+        {   "register.url": 'http://localhost:8081/',
+            "registration.url": 'http://localhost:8082/',
+            "search.url": 'http://localhost:8083/'}};
+
+const registerApiRoot = config.credentials["register.url"] || process.env.REGISTER_API_ROOT || 'http://localhost:8081/';
 const registerSearchTemplate = 'codes/search/findOneByValue?value=%s';
 
-const registrationRoot = process.env.REGISTRATION_ROOT || 'http://localhost:8082/';
+const registrationRoot = config.credentials["registration.url"] || process.env.REGISTRATION_ROOT || 'http://localhost:8082/';
 const registrationQueryTemplate = '?value=%s';
-const searchRoot = process.env.SEARCH_ROOT || 'http://localhost:8083/';
+const searchRoot = config.credentials["search.url"] || process.env.SEARCH_ROOT || 'http://localhost:8083/';
 const searchQueryTemplate ='?q=%s';
+
+console.log("Register API root: ", registerApiRoot);
+console.log("Registration root: ", registrationRoot);
+console.log("Search root: ", searchRoot);
 
 var app = express();
 app.get('/', function (req, res) {
