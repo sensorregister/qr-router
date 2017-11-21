@@ -3,10 +3,12 @@ var util = require('util');
 var request = require('request');
 
 const registerApiRoot = process.env.REGISTER_API_ROOT || 'http://localhost:8081/';
-const searchTemplate = 'codes/search/findOneByValue?value=%s';
+const registerSearchTemplate = 'codes/search/findOneByValue?value=%s';
 
-const registerUiRoot = process.env.REGISTER_UI_ROOT || 'http://localhost:8082/';
-const searchUiRoot = process.env.SEARCH_UI_ROOT || 'http://localhost:8083/';
+const registrationRoot = process.env.REGISTRATION_ROOT || 'http://localhost:8082/';
+const registrationQueryTemplate = '?value=%s';
+const searchRoot = process.env.SEARCH_ROOT || 'http://localhost:8083/';
+const searchQueryTemplate ='?q=%s';
 
 var app = express();
 app.get('/', function (req, res) {
@@ -15,7 +17,7 @@ app.get('/', function (req, res) {
 
 app.get('/:code', function (req, res) {
     var uri = req.header('HOST') + "/" + req.params.code;
-    var path = util.format(searchTemplate, uri);
+    var path = util.format(registerSearchTemplate, uri);
 
     request(registerApiRoot + path, function (error, response, body) {
         if (error) {
@@ -28,10 +30,10 @@ app.get('/:code', function (req, res) {
             else {
                 var result = JSON.parse(body);
                 if (result.status === 'INITIALIZED') {
-                    res.redirect(registerUiRoot);
+                    res.redirect(registrationRoot + util.format(registrationQueryTemplate, uri));
                 }
                 else if (result.status === 'ACTIVATED') {
-                    res.redirect(searchUiRoot);
+                    res.redirect(searchRoot + util.format(searchQueryTemplate, uri));
                 }
                 else {
                     res.send("This should not be happening, try again later.");
