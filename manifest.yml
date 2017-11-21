@@ -5,6 +5,8 @@ applications:
   instances: 1
   buildpack: nodejs_buildpack
   memory: 128M
+  services:
+     - registration-config
   routes:
     - route: qr-router.apps.kadaster.examples.cf
     - route: senzd.nl
