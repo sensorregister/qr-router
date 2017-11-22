@@ -40,7 +40,7 @@ app.get('/:code', function (req, res) {
         }
         else {
             if (response.statusCode !== 200) {
-                res.status(404).send("Code node found");
+                res.status(404).send("Code not found");
             }
             else {
                 var result = JSON.parse(body);
